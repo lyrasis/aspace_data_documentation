@@ -6,7 +6,9 @@ source "https://rubygems.org"
 
 gem "archivesspace-client"
 gem "bigdecimal"
+gem "csv"
 gem "json-schema", "1.0.10" # pinned to version used in AS
+gem "table_tennis"
 gem "thor"
 gem "zeitwerk"
 
