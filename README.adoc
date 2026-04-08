@@ -45,9 +45,22 @@ If significant changes have been pushed to master, but not yet released, you may
 
 === Usage
 
-Right now there is no interface to the code.
+==== Thor CLI
 
-Use the `bin/console` command to interact with the code.
+This application has a https://github.com/rails/thor/wiki[Thor]-based CLI.
+
+Do `thor list` to see all command groupings.
+
+To see individual commands in a group, do something like `thor repo`.
+
+To see all options/help for an individual command, follow this pattern:
+
+`thor create help resources`
+
+==== Console
+
+You can also use the `bin/console` command to interact with the code.
+This is useful for experimenting, development, or doing ad-hoc stuff with existing pieces of code for which no Thor command exists.
 
 `ADT` is a shortcut/alias for `AspaceDataTools`.
 
