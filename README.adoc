@@ -37,11 +37,21 @@ bundle install
 Copy `sample_config.json` to `~/.config/aspace-data-tools/config.json`.
 
 Update the copied file as needed.
-For basic usage of this tool, you shouldn't need to make any changes.
+For use of this tool to generate data documentation, you shouldn't need to make any changes.
 
 With no modifications to the config, the tool will connect to the ArchivesSpace test instance, which is built from the master branch of ArchivesSpace.
 
 If significant changes have been pushed to master, but not yet released, you may wish to switch to a locally-running instance of the latest release.
+
+[WARNING]
+====
+You should switch to a locally-running instance, or a real target instance online, before using commands that post data to the instance.
+====
+
+[TIP]
+====
+`thor config show` will write your current config to STDOUT.
+====
 
 === Usage
 
