@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AspaceDataDocumentation
+module AspaceDataTools
   class Rectype
     attr_reader :name, :schema
 
@@ -13,7 +13,7 @@ module AspaceDataDocumentation
           fail("#{name}: No jsonmodel_type name extracted from #{model}")
         end
 
-        ADD.get_rectype(namematch[1])
+        ADT.get_rectype(namematch[1])
       end
     end
 
@@ -43,7 +43,7 @@ module AspaceDataDocumentation
         elsif obj_or_ref?(v) || objs_or_refs?(v)
           obj_or_ref_requireds(k, v)
         elsif subrecord?(k, v)
-          ADD::Rectype.from_model_ref(v.dig("items", "type"))
+          ADT::Rectype.from_model_ref(v.dig("items", "type"))
             .required_fields(:subrecord)
         else
           report_unknown(k, v)
@@ -100,7 +100,7 @@ module AspaceDataDocumentation
     end
 
     def objref_required(k, v)
-      ADD::Rectype.new(k, v["items"])
+      ADT::Rectype.new(k, v["items"])
         .required_fields(:subrecord)
     end
 
@@ -112,7 +112,7 @@ module AspaceDataDocumentation
     end
 
     def obj_or_ref_requireds(k, v)
-      from_obj = ADD::Rectype.from_model_ref(v.dig("items", "type"))
+      from_obj = ADT::Rectype.from_model_ref(v.dig("items", "type"))
         .required_fields(:subrecord)
         .map { |f| "#{f} (if creating)" }
 

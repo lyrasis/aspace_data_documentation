@@ -2,7 +2,7 @@
 
 require "json"
 
-module AspaceDataDocumentation
+module AspaceDataTools
   class Config
     # @param path [NilValue, String] location of config .json file
     def initialize(path = nil)
@@ -30,7 +30,7 @@ module AspaceDataDocumentation
 
     def preferred_path
       File.expand_path(
-        File.join("~", ".config", "aspace_data_documentation", "config.json")
+        File.join("~", ".config", "aspace_data_tools", "config.json")
       )
     end
 

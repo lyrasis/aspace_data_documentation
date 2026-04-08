@@ -4,8 +4,8 @@ require "pry"
 require "zeitwerk"
 
 # Main namespace
-module AspaceDataDocumentation
-  ::ADD = AspaceDataDocumentation
+module AspaceDataTools
+  ::ADT = AspaceDataTools
 
   class << self
     def loader
@@ -36,8 +36,8 @@ module AspaceDataDocumentation
       fetched = rectypes.find { |rt| rt.name == name }
       return fetched if fetched
 
-      result = ADD.client.get("/schemas/#{name}")
-      return ADD::Rectype.new(name, result.parsed) if result.status_code == 200
+      result = ADT.client.get("/schemas/#{name}")
+      return ADT::Rectype.new(name, result.parsed) if result.status_code == 200
 
       fail("#{result.status}\n#{result.parsed}")
     end
@@ -47,7 +47,7 @@ module AspaceDataDocumentation
     end
 
     def reqfields
-      ADD.rectypes.each do |rt|
+      ADT.rectypes.each do |rt|
         puts "#{rt.name}:\n#{rt.required_fields.join(",")}\n\n"
       end
       nil
@@ -55,4 +55,4 @@ module AspaceDataDocumentation
   end
 end
 
-ADD.loader
+ADT.loader
