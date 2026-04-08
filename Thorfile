@@ -2,7 +2,7 @@
 
 require "bundler/setup"
 require "pry"
-require_relative "lib/aspace_data_documentation"
+require_relative "lib/aspace_data_tools"
 
 class << Thor
   def exit_on_failure?

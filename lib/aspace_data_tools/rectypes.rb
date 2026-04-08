@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AspaceDataDocumentation
+module AspaceDataTools
   class Rectypes
     NOT_RECTYPES = %w[name_form enumeration_value enumeration
       enumeration_migration merge_request merge_request_detail
@@ -13,9 +13,9 @@ module AspaceDataDocumentation
       vocabulary]
 
     # @param client [NilClass, ArchivesSpace::Client] gets client with config
-    #   info from ADD.config if not provided
+    #   info from ADT.config if not provided
     def initialize(client: nil)
-      @client = client || ADD.client
+      @client = client || ADT.client
     end
 
     def call

@@ -2,7 +2,7 @@
 
 require "archivesspace/client"
 
-module AspaceDataDocumentation
+module AspaceDataTools
   class Asclient
     REQUIRED_FIELDS = %i[base_uri base_repo username password page_size
       throttle verify_ssl debug]
@@ -15,7 +15,7 @@ module AspaceDataDocumentation
       debug: false
     }
 
-    # @param config [NilClass, Hash] gets config info from ADD.config if
+    # @param config [NilClass, Hash] gets config info from ADT.config if
     #   not provided
     def initialize(config: nil)
       @supplied_config = config
@@ -43,7 +43,7 @@ module AspaceDataDocumentation
     end
 
     def build_file_config
-      client_settings = ADD.config
+      client_settings = ADT.config
         .to_h
         .select { |k, v| k.to_s.start_with?("client_") }
         .transform_keys! { |k| k.to_s.delete_prefix("client_").to_sym }

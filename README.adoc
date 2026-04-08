@@ -1,7 +1,7 @@
 :toc:
 :toc-placement!:
 :toclevels: 4
-:imagesdir: https://raw.githubusercontent.com/lyrasis/aspace_data_documentation/main/images
+:imagesdir: https://raw.githubusercontent.com/lyrasis/aspace_data_tools/main/images
 
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -11,7 +11,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-= ArchivesSpace data documentation
+= ArchivesSpace data tools
 
 toc::[]
 
@@ -65,7 +65,7 @@ bundle install
 
 ==== Configuration
 
-Copy `sample_config.json` to `~/.config/aspace_data_documentation/config.json`.
+Copy `sample_config.json` to `~/.config/aspace-data-tools/config.json`.
 
 Update the copied file as needed.
 For basic usage of this tool, you shouldn't need to make any changes.
@@ -80,13 +80,13 @@ Right now there is no interface to the code.
 
 Use the `bin/console` command to interact with the code.
 
-`ADD` is a shortcut/alias for `AspaceDataDocumentation`.
+`ADT` is a shortcut/alias for `AspaceDataTools`.
 
 [source,bash]
 ----
 # Pull all record type schemas and convert to RecordType objects
 # Useful for querying across the record types
-rts = ADD.record_types
+rts = ADT.record_types
 
 # Example query across record types to find those with a `position` field,
 #   but no `ancestors` field
@@ -96,11 +96,11 @@ rtna = rts.select do |rectype|
 end
 
 # Get a specific record type
-r = ADD.get_rectype("resource")
+r = ADT.get_rectype("resource")
 
 # List required fields for each record type to screen
-ADD.reqfields
+ADT.reqfields
 
 # Get an archivesspace-client instance with which to do make ad hoc API calls
-client = ADD.client
+client = ADT.client
 ----
