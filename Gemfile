@@ -4,7 +4,8 @@ ruby File.read(".ruby-version").strip
 
 source "https://rubygems.org"
 
-gem "archivesspace-client"
+gem "archivesspace-client", github: "lyrasis/archivesspace-client",
+  branch: "master"
 gem "bigdecimal"
 gem "csv"
 gem "json-schema", "1.0.10" # pinned to version used in AS
