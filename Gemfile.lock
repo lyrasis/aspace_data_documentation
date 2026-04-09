@@ -52,6 +52,7 @@ GEM
     connection_pool (3.0.2)
     crass (1.0.6)
     csv (3.3.5)
+    date (3.5.1)
     diff-lcs (1.6.2)
     drb (2.2.3)
     dry-cli (0.7.0)
@@ -95,6 +96,9 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       reline (>= 0.6.0)
+    psych (5.3.1)
+      date
+      stringio
     racc (1.8.1)
     rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
@@ -155,6 +159,7 @@ GEM
     standard-performance (1.9.0)
       lint_roller (~> 1.1)
       rubocop-performance (~> 1.26.0)
+    stringio (3.2.0)
     table_tennis (0.0.7)
       csv (~> 3.3)
       ffi (~> 1.17)
@@ -182,6 +187,7 @@ DEPENDENCIES
   csv
   json-schema (= 1.0.10)
   pry (~> 0.14)
+  psych
   rspec
   table_tennis
   thor
@@ -203,6 +209,7 @@ CHECKSUMS
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
+  date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
   dry-cli (0.7.0) sha256=7aa4d4808cdfb39de2f5fc770e34e216ac4ee5e5e77b42757701068b42bbcdb9
@@ -229,6 +236,7 @@ CHECKSUMS
   parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
   pry (0.16.0) sha256=d76c69065698ed1f85e717bd33d7942c38a50868f6b0673c636192b3d1b6054e
+  psych (5.3.1) sha256=eb7a57cef10c9d70173ff74e739d843ac3b2c019a003de48447b2963d81b1974
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rails-dom-testing (2.3.0) sha256=8acc7953a7b911ca44588bf08737bc16719f431a1cc3091a292bca7317925c1d
   rails-html-sanitizer (1.7.0) sha256=28b145cceaf9cc214a9874feaa183c3acba036c9592b19886e0e45efc62b1e89
@@ -249,6 +257,7 @@ CHECKSUMS
   standard (1.54.0) sha256=7a4b08f83d9893083c8f03bc486f0feeb6a84d48233b40829c03ef4767ea0100
   standard-custom (1.0.2) sha256=424adc84179a074f1a2a309bb9cf7cd6bfdb2b6541f20c6bf9436c0ba22a652b
   standard-performance (1.9.0) sha256=49483d31be448292951d80e5e67cdcb576c2502103c7b40aec6f1b6e9c88e3f2
+  stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
   table_tennis (0.0.7) sha256=b45b50dc7714e3bea5b31d2ad2b7d6bdc2995fc7a686976017c17424e1094a28
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
