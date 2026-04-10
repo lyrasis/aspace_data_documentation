@@ -171,4 +171,31 @@ end
 
 So that explains that.
 
-And _*UNFORTUNATELY*_ it explains why, at least for initial iteration of this data-model-related tooling, there will need to be a fair amount of manually hard-coded janky logic.
+And _*UNFORTUNATELY*_ it explains why, at least for initial iteration of this data-model-related tooling, there will need to be a fair amount of manually hard-coded janky logic based on code reading.
+
+This means we'll need to come up with something really freaking clever to check each hard-coded assertion/logic loop against the relevant ArchivesSpace code to catch any changes made in future ArchivesSpace releases.
+
+== JSONModel (/common) vs. ASModel (/backend)
+
+When creating, updating, or deleting ArchivesSpace data, there are two "layers" to go through:
+
+* The API/JSON step
+** Create/Update: converts JSON payload to the internal Object that ArchivesSpace code itself manipulates
+** Get: converts internal Object to JSON to be emitted by API endpoint
+* The database step
+** Create/Update: handles writing of internal Object to database for storage/persistence
+** Get: retrieves relevant data from database and converts it to an internal Object
+
+This helps explain why this data layer logic is in two separate places, and appears very scattered.
+
+The stuff in /common is for the API/JSON step.
+This code can be pulled out and used independently of the rest of the ArchivesSpace code, without needing to access the database.
+The aspace-repo-move-tools app does this, for example.
+
+The stuff in /backend requires access to the database and other parts of the ArchivesSpace codebase.
+
+This is why:
+
+* Requiring `lang_materials/language_and_script/language` makes sense in the /common/validations.rb.
+You don't need to connect to the database to efficiently check for that value in a given JSON payload and complain if it is missing.
+* Most, if not all, uniqueness constraints and relationship-oriented validations occur in the /backend, since these types of checks are much faster/easier to do via the database.
