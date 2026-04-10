@@ -45,10 +45,10 @@ class Doc < Thor
     aliases: "-f"
   def update_locales
     res = if options.key?(:force)
-            ADT::Doc::UpdateLocales.new(force: options[:force]).call
-          else
-            ADT::Doc::UpdateLocales.new.call
-          end
+      ADT::Doc::UpdateLocales.new(force: options[:force]).call
+    else
+      ADT::Doc::UpdateLocales.new.call
+    end
     puts res
   end
 end
