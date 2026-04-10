@@ -1,0 +1,50 @@
+{
+  "title": "Resource with ext id",
+  "id_0": "RID1",
+  "level": "collection",
+  "finding_aid_language": "eng",
+  "finding_aid_script": "Latn",
+  "jsonmodel_type": "resource",
+  "lang_materials": [
+    {
+      "jsonmodel_type": "lang_material",
+      "language_and_script": {
+        "language": "eng",
+        "jsonmodel_type": "language_and_script"
+      }
+    },
+    [
+      {
+	"jsonmodel_type": "note_langmaterial",
+	"type": "note_langmaterial_type",
+	"content": [
+	  "langauge note here"
+	]
+      }
+    ]
+  ],
+  "external_ids": [
+    {
+      "external_id": "1234",
+      "source": "another system",
+      "jsonmodel_type": "external_id"
+    }
+  ],
+  "extents": [
+    {
+      "number": "1",
+      "portion": "whole",
+      "extent_type": "linear_feet",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "dates": [
+    {
+      "begin": "1987-07-16",
+      "end": "1987-07-18",
+      "date_type": "inclusive",
+      "label": "event",
+      "jsonmodel_type": "date"
+    }
+  ]
+}

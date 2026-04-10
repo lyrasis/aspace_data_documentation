@@ -1,0 +1,229 @@
+:toc:
+:toc-placement!:
+:toclevels: 4
+:imagesdir: https://raw.githubusercontent.com/lyrasis/aspace_data_tools/main/images
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+= Nested record implication testing
+
+toc::[]
+
+`lang_materials/language_and_script` is a nested record in `land_materials`.
+
+`lang_materials/notes` is an array of `note_langmaterial` objects, not defined as nested record in `LangMaterial` ASModel.
+
+== Import new resource with a typo in the `note_langmaterial/content`
+
+https://github.com/lyrasis/aspace-data-tools/blob/main/spec/support/fixtures/resource_lang_note_typo.json[Resource JSON with typo in language note]
+
+[source,bash]
+----
+j = JSON.load_file(File.join(Bundler.root, "spec", "support", "fixtures", "resource_lang_note_typo.json"))
+
+[...]
+
+c.post("/repositories/4/resources", j)
+=> #<ArchivesSpace::Response:0x0000000109d982f8
+ [...]
+ @parsed={"status" => "Created", "id" => 24, "lock_version" => 0, "stale" => true, "uri" => "/repositories/4/resources/24", "warnings" => []},
+ @status=#<Net::HTTPOK 200 OK readbody=true>,
+ @status_code=200>
+
+c.get("//repositories/4/resources/24").parsed
+=> [...]
+"lang_materials" =>
+  [{"lock_version" => 0,
+    "created_by" => "admin",
+    "last_modified_by" => "admin",
+    "create_time" => "2026-04-10T15:48:44Z",
+    "system_mtime" => "2026-04-10T15:48:44Z",
+    "user_mtime" => "2026-04-10T15:48:44Z",
+    "jsonmodel_type" => "lang_material",
+    "notes" => [{"jsonmodel_type" => "note_langmaterial", "type" => "langmaterial", "content" => ["lnguage note"], "persistent_id" => "93a1185ff651fe9fa880ee5bf70ce8eb", "publish" => false}],
+    "language_and_script" =>
+     {"lock_version" => 0,
+      "created_by" => "admin",
+      "last_modified_by" => "admin",
+      "create_time" => "2026-04-10T15:48:44Z",
+      "system_mtime" => "2026-04-10T15:48:44Z",
+      "user_mtime" => "2026-04-10T15:48:44Z",
+      "language" => "eng",
+      "script" => "Latn",
+      "jsonmodel_type" => "language_and_script"}}],
+[...]
+
+----
+
+== Update resource to fix typo in `note_langmaterial/content`
+
+https://github.com/lyrasis/aspace-data-tools/blob/main/spec/support/fixtures/resource_lang_note_typo_fix.json[Resource JSON with typo in language note fixed]
+
+[source,bash]
+----
+j = JSON.load_file(File.join(Bundler.root, "spec", "support", "fixtures", "resource_lang_note_typo_fix.json"))
+
+c.post("/repositories/4/resources/24", j)
+=> #<ArchivesSpace::Response:0x0000000109bb5f08
+[...]
+ @parsed={"status" => "Updated", "id" => 24, "lock_version" => 1, "stale" => true, "uri" => "/repositories/4/resources/24", "warnings" => []},
+ @status=#<Net::HTTPOK 200 OK readbody=true>,
+ @status_code=200>
+
+c.get("//repositories/4/resources/24").parsed
+=> [...]
+ "lang_materials" =>
+  [{"lock_version" => 0,
+    "created_by" => "admin",
+    "last_modified_by" => "admin",
+    "create_time" => "2026-04-10T16:58:36Z",
+    "system_mtime" => "2026-04-10T16:58:36Z",
+    "user_mtime" => "2026-04-10T16:58:36Z",
+    "jsonmodel_type" => "lang_material",
+    "notes" => [{"jsonmodel_type" => "note_langmaterial", "type" => "langmaterial", "content" => ["language note"], "persistent_id" => "3c609a4d58b6da7cde4ba1af0fc85826", "publish" => false}],
+    "language_and_script" =>
+     {"lock_version" => 0,
+      "created_by" => "admin",
+      "last_modified_by" => "admin",
+      "create_time" => "2026-04-10T16:58:36Z",
+      "system_mtime" => "2026-04-10T16:58:36Z",
+      "user_mtime" => "2026-04-10T16:58:36Z",
+      "language" => "eng",
+      "script" => "Latn",
+      "jsonmodel_type" => "language_and_script"}}],
+[...]
+----
+
+* There is one note, with the typo fixed, in the updated record
+* `persistent_id` of `note_langmaterial` has changed.
+* Querying the database indicates there is no longer a `note_persistent_id` row for the initial note
+
+== Update resource to change language in `language_and_script/language`
+
+https://github.com/lyrasis/aspace-data-tools/blob/main/spec/support/fixtures/resource_lang_change.json[Resource JSON with different language specified]
+
+The above-linked JSON record is "sparse". I.e. we aren't changing the language note this time, so I've left it out of the record.
+
+[source,bash]
+----
+j = JSON.load_file(File.join(Bundler.root, "spec", "support", "fixtures", "resource_lang_change.json"))
+
+c.post("/repositories/4/resources/24", j)
+=> #<ArchivesSpace::Response:0x0000000109bb5f08
+[...]
+ @parsed={"status" => "Updated", "id" => 24, "lock_version" => 2, "stale" => true, "uri" => "/repositories/4/resources/24", "warnings" => []},
+ @status=#<Net::HTTPOK 200 OK readbody=true>,
+ @status_code=200>
+
+c.get("//repositories/4/resources/24").parsed
+=> [...]
+"lang_materials" => #920
+  [{"lock_version" => 0,
+    "created_by" => "admin",
+    "last_modified_by" => "admin",
+    "create_time" => "2026-04-10T17:25:55Z",
+    "system_mtime" => "2026-04-10T17:25:55Z",
+    "user_mtime" => "2026-04-10T17:25:55Z",
+    "jsonmodel_type" => "lang_material",
+    "notes" => [],
+    "language_and_script" => #431
+     {"lock_version" => 0,
+      "created_by" => "admin",
+      "last_modified_by" => "admin",
+      "create_time" => "2026-04-10T17:25:55Z",
+      "system_mtime" => "2026-04-10T17:25:55Z",
+      "user_mtime" => "2026-04-10T17:25:55Z",
+      "language" => "fre",
+      "script" => "Latn",
+      "jsonmodel_type" => "language_and_script"}}],
+[...]
+----
+
+* The language note has been deleted. Sparse updates are not supported.
+
+== Readd note
+
+https://github.com/lyrasis/aspace-data-tools/blob/main/spec/support/fixtures/resource_lang_note_readd.json[Resource JSON with note readded]
+
+[source,bash]
+----
+j = JSON.load_file(File.join(Bundler.root, "spec", "support", "fixtures", "resource_lang_note_readd.json"))
+c.post("/repositories/4/resources/24", j)
+=> #<ArchivesSpace::Response:0x0000000124ad6130
+[...]
+ @parsed={"status" => "Updated", "id" => 24, "lock_version" => 3, "stale" => true, "uri" => "/repositories/4/resources/24", "warnings" => []},
+ @status=#<Net::HTTPOK 200 OK readbody=true>,
+ @status_code=200>
+
+c.get("//repositories/4/resources/24").parsed
+=> [...]
+"lang_materials" => #921
+  [{"lock_version" => 0,
+    "created_by" => "admin",
+    "last_modified_by" => "admin",
+    "create_time" => "2026-04-10T17:45:09Z",
+    "system_mtime" => "2026-04-10T17:45:09Z",
+    "user_mtime" => "2026-04-10T17:45:09Z",
+    "jsonmodel_type" => "lang_material",
+    "notes" => [{"jsonmodel_type" => "note_langmaterial", "type" => "langmaterial", "content" => ["language note"], "persistent_id" => "74375a11cd6d650cfe39d5cb76d2f0b3", "publish" => false}], #1937
+    "language_and_script" => #432
+     {"lock_version" => 0,
+      "created_by" => "admin",
+      "last_modified_by" => "admin",
+      "create_time" => "2026-04-10T17:45:09Z",
+      "system_mtime" => "2026-04-10T17:45:09Z",
+      "user_mtime" => "2026-04-10T17:45:09Z",
+      "language" => "fre",
+      "script" => "Latn",
+      "jsonmodel_type" => "language_and_script"}}],
+[...]
+----
+
+* *_New `lang_material` db id._* `note_langmaterial` is not added to existing `lang_material` record. A new `lang_material` record is created.
+* The `language_and_script` record also has a new id, despite its content not changing
+
+== Change language back to English
+
+https://github.com/lyrasis/aspace-data-tools/blob/main/spec/support/fixtures/resource_lang_change_2.json[Resource JSON changing language back to English]
+
+[source,bash]
+----
+j = JSON.load_file(File.join(Bundler.root, "spec", "support", "fixtures", "resource_lang_change_2.json"))
+
+c.post("/repositories/4/resources/24", j)
+=> #<ArchivesSpace::Response:0x0000000125c74428
+ @parsed={"status" => "Updated", "id" => 24, "lock_version" => 4, "stale" => true, "uri" => "/repositories/4/resources/24", "warnings" => []},
+ @status=#<Net::HTTPOK 200 OK readbody=true>,
+ @status_code=200>
+
+c.get("//repositories/4/resources/24").parsed
+=> [...]
+"lang_materials" => #922
+  [{"lock_version" => 0,
+    "created_by" => "admin",
+    "last_modified_by" => "admin",
+    "create_time" => "2026-04-10T17:55:50Z",
+    "system_mtime" => "2026-04-10T17:55:50Z",
+    "user_mtime" => "2026-04-10T17:55:50Z",
+    "jsonmodel_type" => "lang_material",
+    "notes" => [{"jsonmodel_type" => "note_langmaterial", "type" => "langmaterial", "content" => ["language note"], "persistent_id" => "c0e19596e847c32a232a38a791366037", "publish" => false}], #1938
+    "language_and_script" => #433
+     {"lock_version" => 0,
+      "created_by" => "admin",
+      "last_modified_by" => "admin",
+      "create_time" => "2026-04-10T17:55:50Z",
+      "system_mtime" => "2026-04-10T17:55:50Z",
+      "user_mtime" => "2026-04-10T17:55:50Z",
+      "language" => "eng",
+      "script" => "Latn",
+      "jsonmodel_type" => "language_and_script"}}],
+[...]
+----
+
+* All subrecords appear be deleted and recreated anew every time a resource is updated
