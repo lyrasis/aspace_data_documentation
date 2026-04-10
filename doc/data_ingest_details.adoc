@@ -1,0 +1,24 @@
+:toc:
+:toc-placement!:
+:toclevels: 4
+:imagesdir: https://raw.githubusercontent.com/lyrasis/aspace_data_tools/main/images
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+= Data ingest details
+
+toc::[]
+
+== Updating records
+
+Requires `lock_version` property of target record to be included.
+
+*_Sparse updates are not supported._*
+If you do not include a field in the JSON used to post the update, the existing field value(s) are deleted.
+All required fields must be populated in order to update a record, even if no required values are being changed.

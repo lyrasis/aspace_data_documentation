@@ -1,0 +1,14 @@
+{
+  "jsonmodel_type": "required_fields",
+  "record_type": "resource",
+  "subrecord_requirements": [
+    {
+      "property": "metadata_rights_declarations",
+      "record_type": "metadata_rights_declaration",
+      "required": true,
+      "required_fields": [
+        "descriptive_note"
+      ]
+    }
+  ]
+}

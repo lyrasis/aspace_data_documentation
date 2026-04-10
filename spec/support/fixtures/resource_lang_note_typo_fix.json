@@ -1,0 +1,45 @@
+{
+  "lock_version": "0",
+  "title": "Resource with lang note typo",
+  "id_0": "RLNT1",
+  "level": "collection",
+  "finding_aid_language": "eng",
+  "finding_aid_script": "Latn",
+  "jsonmodel_type": "resource",
+  "lang_materials": [
+    {
+      "jsonmodel_type": "lang_material",
+      "notes": [
+	{
+	  "jsonmodel_type": "note_langmaterial",
+	  "type": "langmaterial",
+	  "content": [
+	    "language note"
+	  ]
+	}
+      ],
+      "language_and_script": {
+        "language": "eng",
+        "script": "Latn",
+        "jsonmodel_type": "language_and_script"
+      }
+    }
+  ],
+  "extents": [
+    {
+      "number": "1",
+      "portion": "whole",
+      "extent_type": "linear_feet",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "dates": [
+    {
+      "begin": "1987-07-16",
+      "end": "1987-07-18",
+      "date_type": "inclusive",
+      "label": "event",
+      "jsonmodel_type": "date"
+    }
+  ]
+}
