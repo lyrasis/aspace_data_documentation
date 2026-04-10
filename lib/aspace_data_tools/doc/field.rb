@@ -19,6 +19,8 @@ module AspaceDataTools
         @mode = rectype.mode
       end
 
+      def type = config["type"]
+
       def to_s
         "<##{self.class}:#{object_id.to_s(8)} "\
           "name: #{name}, rectype: #{rectype}, mode: #{mode}>"
