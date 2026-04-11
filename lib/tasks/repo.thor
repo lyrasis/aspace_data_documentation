@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Repo < Thor
-  include ADT::Command::Base
+  extend ADT::Command::Base
 
   desc "create", "Create a new repository in target ArchivesSpace instance"
   method_option :repo_code,

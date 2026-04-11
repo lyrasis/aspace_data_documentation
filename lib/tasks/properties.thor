@@ -2,7 +2,7 @@
 
 # Commands to get field-level info
 class Properties < Thor
-  include ADT::Command::Base
+  extend ADT::Command::Base
 
   # rubocop:disable Lint/Debugger
   desc "norm", "Print normalized field config to screen"
