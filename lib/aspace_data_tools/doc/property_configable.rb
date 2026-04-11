@@ -7,6 +7,12 @@ module AspaceDataTools
     module PropertyConfigable
       SIMPLE_TYPES = %w[string boolean date]
 
+      def category
+        return :subrecord if subrecord?
+
+        :field
+      end
+
       def read_only? = config.dig("readonly") == true
 
       def config_includes_model?
