@@ -4,6 +4,15 @@
 class Doc < Thor
   extend ADT::Command::Base
 
+  desc "endpoints", "List all endpoints (schemas with uri property)"
+  def endpoints = puts ADT::Doc.endpoints.keys
+
+  desc "nonrec_endpoints", "List endpoints not considered top-level records"
+  def nonrec_endpoints = puts ADT::Doc::Rectypes::NON_PRIMARY_RECTYPES.sort
+
+  desc "schemas", "List all schemas"
+  def schemas = puts ADT::Doc.schemas.keys
+
   desc "required", "Print required fields to screen"
   def required
     ADT.reqfields

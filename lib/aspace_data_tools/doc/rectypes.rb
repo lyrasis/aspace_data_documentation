@@ -13,27 +13,12 @@ module AspaceDataTools
         repository_with_agent telephone active_edits user
         vocabulary]
 
-      # @param client [NilClass, ArchivesSpace::Client] gets client with config
-      #   info from ADT.config if not provided
-      def initialize(client: nil)
-        @client = client || ADT.client
-      end
+      def initialize; end
 
       def call
-        get_schemas.select { |_name, schema| schema.key?("uri") }
+        ADT::Doc.endpoints
           .except(*NON_PRIMARY_RECTYPES)
           .map { |name, schema| Rectype.new(name, schema) }
-      end
-
-      private
-
-      attr_reader :client
-
-      def get_schemas
-        result = client.get("/schemas")
-        return result.parsed if result.status_code == 200
-
-        fail("#{result.status}\n#{result.parsed}")
       end
     end
   end

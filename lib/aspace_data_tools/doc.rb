@@ -6,6 +6,17 @@ module AspaceDataTools
   module Doc
     module_function
 
+    # @return [Hash] keys are schema names, values are the schemas
+    def schemas = @schemas ||= ADT.client
+      .get("/schemas")
+      .parsed
+      .sort_by { |k, v| k }
+      .to_h
+
+    # @return [Hash] endpoints are schemas with a uri property
+    def endpoints = @endpoints ||= schemas.select { |k, v| v.key?("uri") }
+      .to_h
+
     # @param name [String] jsonmodel_type of record
     # @return [ADT::Doc::Rectype]
     def get_rectype(name)
