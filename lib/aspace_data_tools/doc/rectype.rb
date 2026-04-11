@@ -3,7 +3,7 @@
 module AspaceDataTools
   module Doc
     class Rectype
-      attr_reader :name, :schema
+      attr_reader :name, :schema, :mode
 
       class << self
         # @param model [String] like "JSONModel(:agent_family) uri" or
@@ -24,6 +24,7 @@ module AspaceDataTools
       def initialize(name, schema, mode: :top_record)
         @name = name
         @schema = schema
+        @mode = mode
       end
 
       def fields
@@ -36,7 +37,7 @@ module AspaceDataTools
       end
 
       def to_s
-        "<##{self.class}:#{object_id.to_s(8)} name: #{name}>"
+        "<##{self.class}:#{object_id.to_s(8)} name: #{name}, mode: #{mode}>"
       end
       alias_method :inspect, :to_s
     end
