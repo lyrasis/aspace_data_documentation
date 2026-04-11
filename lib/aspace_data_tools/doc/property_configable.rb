@@ -22,7 +22,7 @@ module AspaceDataTools
 
       def subrecord?
         config.to_s
-          .match?(/JSONModel\(:[^)]+\) (?:uri_or_)?object/)
+          .match?(/JSONModel\(:[^)]+\) object"/)
       end
     end
   end
