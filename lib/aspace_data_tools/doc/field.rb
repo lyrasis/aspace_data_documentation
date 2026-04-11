@@ -21,6 +21,10 @@ module AspaceDataTools
 
       def type = config["type"]
 
+      def required?
+        config.key?("ifmissing") && config["ifmissing"] == "error"
+      end
+
       def to_s
         "<##{self.class}:#{object_id.to_s(8)} "\
           "name: #{name}, rectype: #{rectype}, mode: #{mode}>"
