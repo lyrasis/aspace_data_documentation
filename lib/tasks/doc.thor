@@ -2,7 +2,7 @@
 
 # Commands to produce data documentation
 class Doc < Thor
-  include ADT::Command::Base
+  extend ADT::Command::Base
 
   desc "required", "Print required fields to screen"
   def required

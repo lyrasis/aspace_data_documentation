@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Config < Thor
-  include ADT::Command::Base
+  extend ADT::Command::Base
 
   desc "show", "Print config to screen"
   def show
